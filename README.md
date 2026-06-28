@@ -1,5 +1,7 @@
 # Evidence-Gated Loop
 
+![Evidence-Gated Loop banner](./assets/evidence-gated-loop-banner.png)
+
 Evidence-Gated Loop is a Codex skill for repair work that must be closed by evidence, not by a confident summary.
 
 The executable skill is [`SKILL.md`](./SKILL.md). This README is the public introduction: what the skill is for, how to install it, and what kind of result it is meant to produce.
@@ -63,9 +65,9 @@ Skip it for tiny one-off edits where one direct check is enough.
 Clone the repository and copy the skill into your Codex skills directory:
 
 ```sh
-git clone https://github.com/jlee-oss/evidence-gated-loop.git
+git clone https://github.com/jlee-oss/evidence-gated-loop-skill.git
 mkdir -p "$HOME/.codex/skills/evidence-gated-loop"
-cp -R evidence-gated-loop/SKILL.md evidence-gated-loop/agents "$HOME/.codex/skills/evidence-gated-loop/"
+cp -R evidence-gated-loop-skill/SKILL.md evidence-gated-loop-skill/agents "$HOME/.codex/skills/evidence-gated-loop/"
 ```
 
 Restart Codex or reload skills if your environment requires it.
@@ -130,4 +132,3 @@ agents/openai.yaml
 ## License
 
 MIT. See [`LICENSE`](./LICENSE).
-
