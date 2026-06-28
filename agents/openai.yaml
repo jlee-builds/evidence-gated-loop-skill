@@ -1,0 +1,4 @@
+interface:
+  display_name: "Evidence-Gated Loop"
+  short_description: "Run plan-review-repair loops until artifact-backed gates pass."
+  default_prompt: "Use $evidence-gated-loop to freeze baseline, repair findings, rerun review-work after repairs, and stop only at a supported ready/blocker verdict."
