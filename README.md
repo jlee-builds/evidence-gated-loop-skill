@@ -74,16 +74,58 @@ Restart Codex or reload skills if your environment requires it.
 
 ## Example Prompt
 
+Use this as a copyable contract, then fill the angle-bracket fields for the project you are repairing:
+
 ```text
-[$evidence-gated-loop] Continue from the current workspace.
-Freeze current hashes first.
-Do not modify protected files unless explicitly allowed.
-Convert every review-work finding into a repair action.
-Apply the smallest safe repair, rerun validators and browser QA,
-rerun affected review-work lanes, and repeat.
-Stop only at ready_for_user_review or blocked_by_exact_external_reason.
-Write final-report.md, final-report.json, and finding-register.json.
+[$evidence-gated-loop] Run a closed evidence-gated loop for <work item>.
+
+Binding universe:
+- Treat <baseline artifact, apply contract, or source manifest> as the source of truth and binding universe.
+- Freeze current hashes and record the authoritative baseline before editing.
+- Allowed write scope: <paths that may change>.
+- Protected files: <paths that must not change>; do not modify them unless the user explicitly expands scope.
+- Current artifacts: <candidate paths, validator outputs, UI surfaces, or payloads that must be judged>.
+
+Existing evidence:
+- Treat every prior FAIL, REJECT, INCONCLUSIVE, timeout, or missing artifact as an input, not noise.
+- Build finding register entries with evidence, affected artifact, repair action, and status.
+- Apply the smallest safe repair for each concrete cause.
+- Each finding must become repaired, superseded_by_current_evidence, or blocked_by_exact_external_reason.
+- Do not close with a report-only "needs reloop" verdict while any repairable finding remains.
+
+Hard gates:
+- Run validators against the latest artifacts.
+- Include negative fixtures for known bad outputs and prove they fail.
+- Run real-surface, browser QA, DOM, or visible payload scans when the user-facing surface can differ from files.
+- Reject fallback copy, generic templates, inaccessible selected sources, exposed internal metadata, duplicate same-purpose rows, and unfinished snippets when those risks apply.
+
+Review-work:
+- Run review-work lanes: goal, qa, code, security, context.
+- A lane passes only with verdict PASS and open_objections: [].
+- After any repair, rerun affected review-work lanes and repeat until all open objections are resolved.
+
+Stop conditions:
+- Regenerate the final packet only from latest evidence after validators, real-surface checks, and review-work finish.
+- Stop at ready_for_user_review only when pass is true, open_objection_count is 0, and there are zero open objections.
+- Stop at blocked_by_exact_external_reason only when exact_external_blocker names a real external blocker.
+- The claim boundary must state what this result does and does not prove, including any protected, parent, production, commercial, or model quality limits.
+
+Required artifacts:
+- final-report.md
+- final-report.json
+- finding-register.json
+- validator, negative-fixture, real-surface, protected-hash, and review-work evidence
 ```
+
+## Test Bed
+
+This repository includes a small README-surface validator for the example prompt:
+
+```sh
+node tests/validate-example-prompt.mjs
+```
+
+The validator extracts the fenced prompt under `## Example Prompt`, checks for the loop contract above, and keeps a weak prompt as a negative control. It is intentionally narrow: it does not prove that every future agent will obey the prompt, but it prevents this public example from regressing into a report-only or validator-only loop.
 
 ## Expected Final Packet
 
@@ -127,6 +169,7 @@ README.md
 SKILL.md
 LICENSE
 agents/openai.yaml
+tests/validate-example-prompt.mjs
 ```
 
 ## License
