@@ -162,6 +162,10 @@ A useful `final-report.json` should make the claim boundary explicit:
 
 This skill does not automatically prove commercial readiness, production safety, model quality, or product-market fitness. It enforces evidence discipline: current claims must match current artifacts, unresolved objections must remain visible, and repairable failures cannot be closed as a report-only verdict.
 
+## Beyond The Skill
+
+This repository is the public skill-level contract. Related work is underway in `runner-orchestrator`, a programmatic runner for evidence-gated command and review loops that goes beyond prompt or skill instructions alone. The implementation details are intentionally not published here yet, but this direction is being prepared for public, inspectable tooling.
+
 ## Repository Layout
 
 ```text
